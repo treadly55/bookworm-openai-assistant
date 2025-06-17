@@ -2,23 +2,27 @@
 
 [build]
   functions = "netlify/functions"
-  publish = "dist" 
+  publish = "dist"
 
-[functions."ask-assistant"]
-  # Increase the timeout for all functions to 25 seconds
+# Use a wildcard to apply the timeout to ALL functions
+[functions."*"]
   timeout = 25
 
-# This sets up the local development server (netlify dev)
+# This block is for your local "netlify dev" command
 [dev]
-  # The command to start your frontend app
   command = "npm run dev"
-  # The port for the frontend server
-  port = 5171 # Default Vite port
-  # The port for the functions server
+  port = 5171
   functionsPort = 8888
 
-# Redirect rule to make calling the function easier from the frontend
+# This redirect sends API calls to your function
 [[redirects]]
   from = "/api/*"
   to = "/.netlify/functions/:splat"
+  status = 200
+
+# This "catch-all" redirect is crucial for Single-Page Apps.
+# It ensures that refreshing the page always works correctly.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
   status = 200
