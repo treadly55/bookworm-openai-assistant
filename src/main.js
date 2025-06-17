@@ -1,4 +1,4 @@
-// src/main.js
+// src/main.js (with added debugging logs)
 import './style.css'
 
 // --- HTML Element References ---
@@ -9,32 +9,38 @@ const responseArea = document.getElementById('responseArea');
 const retryButton = document.getElementById('retry');
 const loadingOverlay = document.getElementById('loadingOverlay');
 
-let pollingInterval; // To hold the interval ID
+let pollingInterval;
 
 // Function to check the run status
 async function checkRunStatus(threadId, runId) {
+    // --- LOG #2: Values received by checkRunStatus ---
+    console.log(`Checking status for threadId: ${threadId}, runId: ${runId}`);
+
     try {
+        const requestBody = { threadId, runId };
+        // --- LOG #3: The exact object being sent to the server ---
+        console.log('Sending this body to /api/check-run:', JSON.stringify(requestBody));
+
         const response = await fetch('/api/check-run', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ threadId, runId }),
+            body: JSON.stringify(requestBody),
         });
         const result = await response.json();
 
         if (result.status === 'completed') {
-            clearInterval(pollingInterval); // Stop polling
+            clearInterval(pollingInterval);
             responseArea.innerHTML = result.message.replace(/\n/g, "<br>");
             loadingOverlay.style.display = 'none';
             responseSpace.style.display = 'block';
             submitButton.disabled = false;
         } else if (result.status === 'failed') {
-            clearInterval(pollingInterval); // Stop polling
+            clearInterval(pollingInterval);
             responseArea.textContent = "The AI request failed. Please try again.";
             loadingOverlay.style.display = 'none';
             responseSpace.style.display = 'block';
             submitButton.disabled = false;
         }
-        // If status is 'in_progress', do nothing and let the interval continue
     } catch (error) {
         clearInterval(pollingInterval);
         console.error("Error checking status:", error);
@@ -56,13 +62,15 @@ async function startRun(question) {
         });
         const result = await response.json();
 
+        // --- LOG #1: The data received from start-run ---
+        console.log('Received from /api/start-run:', result);
+
         if (result.threadId && result.runId) {
-            // Start polling every 2 seconds
             pollingInterval = setInterval(() => {
                 checkRunStatus(result.threadId, result.runId);
             }, 2000);
         } else {
-            throw new Error('Failed to start run.');
+            throw new Error('Failed to get valid IDs from start-run.');
         }
     } catch (error) {
         console.error("Error starting run:", error);
