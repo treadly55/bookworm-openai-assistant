@@ -4,10 +4,6 @@
   functions = "netlify/functions"
   publish = "dist"
 
-# Use a wildcard to apply the timeout to ALL functions
-[functions."*"]
-  timeout = 25
-
 # This block is for your local "netlify dev" command
 [dev]
   command = "npm run dev"
