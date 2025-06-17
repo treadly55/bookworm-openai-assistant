@@ -1,7 +1,7 @@
 // netlify/functions/start-run.js
 import OpenAI from 'openai';
 
-const ASSISTANT_ID = "asst_..."; // <-- Make sure your REAL Assistant ID is here
+const ASSISTANT_ID = "asst_izG16o3Nm10JCJrUns2uceBq"; // <-- Make sure your REAL Assistant ID is here
 
 const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY,
