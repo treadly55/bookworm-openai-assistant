@@ -1,0 +1,168 @@
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: rgb(82, 45, 32);
+}
+
+/* Main styles*/
+
+#app {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgb(82, 45, 32);
+  box-sizing: border-box;
+  position: relative;
+}
+
+h1 {
+  font-size: 2.9em;
+  font-family: 'Merriweather', sans-serif;
+  line-height: 1.1;
+  justify-content: center;
+  align-items: center;
+  color: rgb(168, 124, 93);
+  will-change: filter;
+  transition: filter 200ms;
+}
+
+h1:hover {
+  filter: drop-shadow(0 0 1em rgb(245, 240, 230));
+}
+
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Keeps children like the <p> and .submain centered if they don't take full width */
+  width: 100%;       /* Ensures 'main' takes the full width of #app's content area */
+}
+
+main p {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: rgb(165, 165, 165);
+  font-family: 'Source Sans 3', sans-serif;
+}
+
+.highlight {
+  color: rgb(199, 173, 127);
+}
+
+.submain {
+  display: flex;
+  flex-direction: column;
+  width: 100%;       /* Ensures '.submain' takes the full width of 'main' */
+  align-items: center; /* Centers the #questionField (which is 90% width) within .submain */
+}
+
+.submain > label {
+  font-size: 2rem;
+  font-family: 'Source Sans 3', sans-serif;
+  font-weight: 300;
+  color:rgb(1, 1, 1);
+  display: none;
+}
+
+#questionField {
+  height: 120px;
+  font-size: 1rem;
+  background-color: rgb(245, 240, 230);
+  border: none;
+  border-radius: 3px;
+  width: 90%;      /* This will now be 90% of the full available width */
+  /* It's also good practice to add box-sizing here, though not strictly necessary for this fix if no border/padding is on the input */
+  /* box-sizing: border-box; */
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1.5em;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition: border-color 0.25s;
+  background-color: rgb(199, 173, 127);
+  margin-top: 40px;
+  color: black;
+}
+
+button:hover {
+  border-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+.response {
+  background-color: antiquewhite;
+  border-radius: 20px;
+  padding: 10px 20px;
+  display: none;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+  width: 90%;
+  margin-top: 40px;
+}
+
+.response h2 {
+  font-size: 2rem;
+  font-family: 'Source Sans 3', sans-serif;
+}
+
+#retry {
+  background-color: black;
+  color: wheat;
+}
+
+/* Overlay styles */
+
+
+.loading-overlay {
+  display: none;
+  position: absolute; /* Positioned relative to #app */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(82, 45, 32, 0.85); /* Semi-transparent theme background */
+  z-index: 1000; /* Ensure it's on top */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: rgb(245, 240, 230); /* Light text color for contrast */
+  font-family: 'Source Sans 3', sans-serif;
+}
+
+.loading-overlay p {
+  font-size: 1.4rem;
+  margin-top: 20px;
+}
+
+.loading-spinner {
+  border: 8px solid rgba(245, 240, 230, 0.3); /* Light grey border */
+  border-top: 8px solid rgb(199, 173, 127);    /* Theme color (from button) for spinner */
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 1.2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

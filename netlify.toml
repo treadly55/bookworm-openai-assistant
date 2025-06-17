@@ -1,0 +1,22 @@
+# This file configures your Netlify build and development environment
+
+[build]
+  # Directory where Netlify functions are stored
+  functions = "netlify/functions"
+  # The folder that Vite builds your final static site into
+  publish = "dist" 
+
+# This sets up the local development server (netlify dev)
+[dev]
+  # The command to start your frontend app
+  command = "npm run dev"
+  # The port for the frontend server
+  port = 5171 # Default Vite port
+  # The port for the functions server
+  functionsPort = 8888
+
+# Redirect rule to make calling the function easier from the frontend
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200

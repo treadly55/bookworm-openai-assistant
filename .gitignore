@@ -1,0 +1,14 @@
+# Dependencies
+/node_modules
+
+# Vite build output
+/dist
+
+# Environment variables
+.env
+*.env.local
+
+# System files
+.DS_Store
+# Local Netlify folder
+.netlify
