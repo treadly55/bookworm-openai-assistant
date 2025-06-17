@@ -1,12 +1,10 @@
 # This file configures your Netlify build and development environment
 
 [build]
-  # Directory where Netlify functions are stored
   functions = "netlify/functions"
-  # The folder that Vite builds your final static site into
   publish = "dist" 
 
-[functions]
+[functions."ask-assistant"]
   # Increase the timeout for all functions to 25 seconds
   timeout = 25
 
